@@ -5,4 +5,7 @@ Unzip and store the datasets in your PC.
 2. Read the csv file with FULL data with pandas dataframe and do the cleanup by removing not NA values by using notna function for pandas.
 3. Define the predictor variables.
 4. Create a list of values which need to be predicted that is stored in y.
-5. 
+5. Create a list of predictors values into a dataframe and name it as x.
+Difference between Underfitting and Overfitting.
+  In underfitting the model will not be able to capture all the patterns and behvaiours of the Training data whereas in Overfitting the model 
+  captures all the data in Training data and will be able to match almost exactly the training data so it may fail with any new data.
