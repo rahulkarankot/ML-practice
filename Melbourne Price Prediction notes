@@ -1,0 +1,8 @@
+#This is for practice session on the learning activity on Kaggle.com site for Melbourne House price prediction using Python.
+1. Get the data from Kaggle.com site by searching Housing Price prediction in the datasets search option and get the Melbourne Housing price 
+price datasets. The zip file will have two csv files one with name ending as FULL and other with LESS.
+Unzip and store the datasets in your PC.
+2. Read the csv file with FULL data with pandas dataframe and do the cleanup by removing not NA values by using notna function for pandas.
+3. Define the predictor variables.
+4. Create a list of values which need to be predicted that is stored in y.
+5. 
