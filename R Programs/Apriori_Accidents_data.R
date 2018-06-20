@@ -30,4 +30,22 @@ write(basket_str,"accidents_basket_1.csv")
 accident <- read.transactions("accidents_basket_1.csv",sep=",")
 summary(accident)
 
+itemFrequencyPlot(accident,topN=10,type="absolute",col="darkgreen",horiz=TRUE)
 
+itemFrequencyPlot(accident,topN=10)
+
+rules <- apriori(accident,parameter=list(support=0.1,confidence=0.3))
+
+inspect(rules[1:40])
+
+library(arulesViz)
+rules2 <- rules[1:50]
+
+plot(rules2)
+
+plot(rules2,method="grouped")
+
+plot(rules2,method="graph")
+
+
+plot(rules2,method="graph",control=list(type="items"))
