@@ -1,0 +1,156 @@
+getwd()
+fulldata <- read.csv(choose.files())
+
+str(fulldata)
+
+head(fulldata)
+
+set.seed(1)
+train=sample(1:nrow(fulldata),nrow(fulldata)*0.7)
+head(train)
+
+test=-train
+
+head(test)
+head(train)
+
+modeldata = fulldata[train,]
+testdata=fulldata[test,]
+
+library(ggplot2)
+
+head(modeldata)
+
+modeldata[!complete.cases(modeldata),]
+
+#Univariate Analysis of Variables
+summary(modeldata)
+?geom_bar
+ggplot(data=modeldata,aes(x=modeldata$Purpose_Credit_Taken)) + geom_bar(color="green")
+
+ggplot(data=modeldata,aes(x=modeldata$Credit_History)) + geom_bar(color="green")
+
+summary(modeldata$Age)
+quantile(modeldata$Age,0.995)
+
+modeldata$Age <- ifelse(modeldata$Age > 75,75,modeldata$Age)
+
+summary(modeldata$Housing)
+
+modeldata$Housing[modeldata$Housing==""] <- "A152"
+summary(modeldata$Housing)
+
+?table
+table(modeldata$Num_Dependents,modeldata$Default_On_Payment)
+
+aggregate(modeldata$Num_Dependents,by=list(modeldata$Num_Dependents,modeldata$Default_On_Payment),length)
+
+lol <- table(modeldata$Purpose_Credit_Taken,modeldata$Default_On_Payment)
+
+colnames(lol) <- c("ND","D")
+
+tab_job <- table(modeldata$Job_Status,modeldata$Default_On_Payment)
+
+colnames(tab_job) <- c("ND","D")
+
+modeldata$Job_Status[modeldata$Job_Status==""] <- "A174"
+table(modeldata$Job_Status,modeldata$Default_On_Payment)
+
+modeldata$dummy_j_s_A171<-ifelse(modeldata$Job_Status=="A171",1,0)
+modeldata$dummy_j_s_A172 <- ifelse(modeldata$Job_Status == "A172",1,0)
+modeldata$dummy_j_s_A173<-ifelse(modeldata$Job_Status == "A173",1,0)
+
+head(modeldata)
+
+lol<-table(modeldata$Purpose_Credit_Taken,modeldata$Default_On_Payment)
+
+aggregate(modeldata$Purpose_Credit_Taken,by=list(modeldata$Purpose_Credit_Taken,modeldata$Default_On_Payment),length)
+
+myplot<-function(n)
+{
+  data<-lol[1:n,1,drop=F]
+  data1<-lol[1:n,2,drop=F]
+  sum1=data + data1
+  per=(data1/sum1)*100
+  per
+}
+
+myplot(10)
+
+modeldata$dummy_p_c_t_l<-ifelse(modeldata$Purpose_Credit_Taken=="P41"|
+                                modeldata$Purpose_Credit_Taken=="P48"|
+                                modeldata$Purpose_Credit_Taken=="p43",1,0)
+modeldata$dummy_p_c_t_h<-ifelse(modeldata$Purpose_Credit_Taken=="P49"|
+                                modeldata$Purpose_Credit_Taken=="P40"|
+                                modeldata$Purpose_Credit_Taken=="P45"|
+                                modeldata$Purpose_Credit_Taken=="P50"|
+                                modeldata$Purpose_Credit_Taken=="P46"|
+                                modeldata$Purpose_Credit_Taken=="P44"|
+                                modeldata$Purpose_Credit_Taken=="P42",1,0)
+
+table(modeldata$Status_Checking_Accnt,modeldata$Default_On_Payment)
+
+lol2<-table(modeldata$Status_Checking_Accnt,modeldata$Default_On_Payment)
+
+lol2
+
+myplot2<-function(n)
+{
+  data <- lol2[1:n,1,drop=F]
+  data1 <- lol2[1:n,2,drop=F]
+  sum1 <- data + data1
+  per <- (data1/sum1)*100
+  per
+}
+myplot2(4)
+
+modeldata$dummy_s_c_a_H<-ifelse(modeldata$Status_Checking_Accnt=="S11"|
+                                modeldata$Status_Checking_Accnt=="S12",1,0)
+modeldata$dummy_s_c_a_L<-ifelse(modeldata$Status_Checking_Accnt=="S13"|
+                                modeldata$Status_Checking_Accnt=="S14",1,0)
+
+head(modeldata)
+
+lol3=table(modeldata$Credit_History,modeldata$Default_On_Payment)
+
+myplot3<-function(n)
+{
+  data=lol3[1:n,1,drop=F]
+  data1=lol3[1:n,2,drop=F]
+  sum1=data+data1
+  per=(data1/sum1)*100
+  per
+}
+
+myplot3(5)
+
+modeldata$dummy_Credit_History_high<-ifelse(modeldata$Credit_History=="A30"|
+                                            modeldata$Credit_History=="A31",1,0)
+modeldata$dummy_Credit_History_low<-ifelse(modeldata$Credit_History=="A32"|
+                                           modeldata$Credit_History=="A33"|
+                                           modeldata$Credit_History=="A34",1,0)
+head(modeldata)
+
+lol4<-table(modeldata$Years_At_Present_Employment,modeldata$Default_On_Payment)
+
+lol4
+
+myplot5<-function(n)
+{
+  data=lol4[1:n,1,drop=F]
+  data1=lol4[1:n,2,drop=F]
+  sum1=data + data1
+  per=(data1/sum1)*100
+  per
+}
+
+myplot5(5)
+
+modeldata$dummy_Years_At_Present_Employment_high<-ifelse(modeldata$Years_At_Present_Employment == "E71"|
+                                                           modeldata$Years_At_Present_Employment == "E72",1,0)
+modeldata$dummy_Years_At_Present_Employment_medium<-ifelse(modeldata$Years_At_Present_Employment=="E73",1,0)
+modeldata$dummy_Years_At_Present_Employment_low<-ifelse(modeldata$Years_At_Present_Employment=="E74"|
+                                                          modeldata$Years_At_Present_Employment=="E75"
+                                                          ,1,0)
+
+table(modeldata$Marital_Status_Gender,modeldata$Default_On_Payment)
