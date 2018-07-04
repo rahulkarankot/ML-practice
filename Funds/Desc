@@ -1,1 +1,29 @@
 
+Part 1. Machine Learning:
+In the zip file you have 4 files:
+- tabla_fondos: Detail of 29,800 funds (name, category, profitability, volatility and
+minimum contribution of each fund).
+- perfiles_inversores: Detail of the risk profile of 89,900 customers.
+- asignacion_fondos: Detail of the funds allocated to the 79,900 first clients. The
+10,000 last you do not have them.
+- asignacion_dinero: Detail of the money allocated to each fund in the first 79,900
+customers. The last 10,000 do not have them.
+
+It is requested, with accuracy > 80%
+- What funds have we recommended to the last 10,000 clients?
+- What amount have we allocated to each fund?
+- The Python code of the solution and a small report of what has be done.
+- ETL and XGboost preferred.
+
+---
+Part 2: Deep learning.
+In the Machine Learning test we start from tagged data (the funds allocated to each
+profile). Suppose now that this allocation is not optimal.
+Develop a Deep Learning model that allocates the funds to the different profiles.
+You can use the network you estimate to develop the model.
+The objective will be to maximize the profitability of each client, according to their risk profile.
+
+It is requested.
+- What funds have we recommended to all clients?
+- What amount have we allocated to each client?
+- The Python code of the solution and a small report of what has be done.
