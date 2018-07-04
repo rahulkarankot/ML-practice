@@ -1,0 +1,323 @@
+
+# coding: utf-8
+
+# In[1]:
+
+
+import pandas as pd
+
+
+# In[2]:
+
+
+table_funds=pd.read_csv("C:\\Users\\rgoulika\\Downloads\\Python\\Funds\\tabla_fondos.csv")
+
+
+# In[3]:
+
+
+table_funds.info()
+
+
+# In[5]:
+
+
+table_funds.rentabilidad_1Y = table_funds.rentabilidad_1Y.str.strip('%').astype(float) 
+
+
+# In[7]:
+
+
+table_funds.columns
+
+
+# In[8]:
+
+
+table_funds.columns=['Fund_Name','Category','Profitability_Ongoing','Profitability_1Y','Volatiliy_1Y',
+                     'Profitability_3Y','Volatiliy_3Y','Profitability_5Y','Volatiliy_5Y',
+                     'Profitability_10Y','Volatiliy_10Y',
+                     'Minimum_Contribution']
+
+
+# In[9]:
+
+
+table_funds.head()
+
+
+# In[11]:
+
+
+table_funds.info()
+
+
+# In[13]:
+
+
+table_funds.Fund_Name=table_funds.Fund_Name.astype('category')
+
+
+# In[14]:
+
+
+table_funds.info()
+
+
+# In[15]:
+
+
+table_funds.Category=table_funds.Category.astype('category')
+
+
+# In[16]:
+
+
+table_funds.info(0)
+
+
+# In[18]:
+
+
+table_funds.Profitability_Ongoing=table_funds.Profitability_Ongoing.str.strip('%').astype('float')/100
+
+
+# In[19]:
+
+
+table_funds.head()
+
+
+# In[20]:
+
+
+table_funds.Profitability_1Y=table_funds.Profitability_1Y/100
+
+
+# In[21]:
+
+
+table_funds.head()
+
+
+# In[28]:
+
+
+table_funds.columns[4:11]
+
+
+# In[30]:
+
+
+for c in table_funds.columns[4:11]:
+    table_funds[c]=table_funds[c].str.strip('%').astype('float')/100
+
+
+# In[31]:
+
+
+table_funds.head()
+
+
+# In[69]:
+
+
+fil=table_funds.Fund_Name
+
+
+# In[54]:
+
+
+table_funds.columns[table_funds.isna().any()]#code to find if any of the columns as NAN values
+
+
+# In[71]:
+
+
+table_funds.describe()
+
+
+# In[72]:
+
+
+import seaborn as sns
+
+
+# In[75]:
+
+
+get_ipython().run_line_magic('matplotlib', 'inline')
+
+
+# In[78]:
+
+
+from matplotlib import pyplot as plt
+
+
+# In[91]:
+
+
+sns.jointplot(data=table_funds,x='Profitability_1Y',y='Volatiliy_1Y')
+
+
+# In[92]:
+
+
+plt.scatter(data=table_funds,x='Profitability_1Y',y='Volatiliy_1Y')
+
+
+# In[104]:
+
+
+sns.distplot(table_funds.Profitability_1Y)
+
+
+# In[117]:
+
+
+sns.jointplot(data=table_funds,x="Profitability_1Y",y="Profitability_10Y")
+
+
+# In[119]:
+
+
+plt.scatter(data=table_funds,x="Profitability_1Y",y="Profitability_10Y")
+
+
+# In[123]:
+
+
+sns.boxplot(data=table_funds,x="Profitability_1Y")
+
+
+# In[134]:
+
+
+grouped_Funds=table_funds.groupby('Fund_Name')
+
+
+# In[138]:
+
+
+grouped_Funds
+
+table_funds.head()
+# In[142]:
+
+
+table_funds.head()
+
+
+# In[140]:
+
+
+Gr_Cat=table_funds.groupby('Category')
+
+
+# In[141]:
+
+
+Gr_Cat.groups
+
+
+# In[143]:
+
+
+len(Gr_Cat)
+
+
+# In[148]:
+
+
+Gr_Cat.count().iloc[1:10]
+
+
+# In[149]:
+
+
+investors_profile=pd.read_csv("C:\\Users\\rgoulika\\Downloads\\Python\\Funds\\perfiles_inversores.csv")
+
+
+# In[151]:
+
+
+investors_profile.columns
+
+
+# In[152]:
+
+
+a="hi hi"
+
+
+# In[153]:
+
+
+a.replace(" ","_")
+
+
+# In[156]:
+
+
+investors_profile.columns=['ID', 'Que rentabilidad buscas para tu cartera de inversion?',
+       'El mercado de valores global es a menudo volatil. Imagina que tu cartera de inversiones pierde un 10% de su valor en un mes. Que harias?',
+       'Si piensas en la palabra riesgo cual de las siguientes palabras te viene a la mente?',
+       'En el pasado has invertido en acciones o fondos de inversion?',
+       'Que edad tienes?',
+       'Cual es el importe de tus inversiones en activos liquidos?',
+       'Cuales son tus ingresos anuales despues de impuestos?',
+       'Como de estables son tus ingresos actuales y futuros?',
+       'Que porcentaje de tus ingresos se van en gastos?',
+       'Que plazo te planteas para tu inversion?',
+       'Que importe tienes pensado invertir?']
+
+
+# In[157]:
+
+
+investors_profile.columns
+
+
+# In[161]:
+
+
+cols=[]
+
+
+# In[162]:
+
+
+for c in investors_profile.columns:
+    cols.append(c.replace(" ","_").replace("?",""))
+
+
+# In[164]:
+
+
+len(cols)
+
+
+# In[165]:
+
+
+investors_profile.columns=cols
+
+
+# In[166]:
+
+
+investors_profile.columns
+
+
+# In[167]:
+
+
+investors_profile.describe()
+
+
+# In[168]:
+
+
+investors_profile.info()
+
